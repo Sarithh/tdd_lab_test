@@ -16,5 +16,9 @@ def read_item(item_id: int, q: str = None):
 def read_name(name: str = None):
     return {"hello":name}
 
+@app.get("/callname")
+def write_name(data: dict):
+    name = data.get("name")
+    return {"hello":name}
 
 handler = Mangum(app)
