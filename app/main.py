@@ -5,7 +5,7 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"Hello": "Sarith"}
 
 
 @app.get("/items/{item_id}")
@@ -16,5 +16,9 @@ def read_item(item_id: int, q: str = None):
 def read_name(name: str):
     return {"hello": name}
 
+@app.post("/callname")
+def write_name(data: dict):
+    name = data.get("name")
+    return {"hello": name}
 
 handler = Mangum(app)
