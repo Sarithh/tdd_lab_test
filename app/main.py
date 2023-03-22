@@ -12,7 +12,7 @@ def read_name(name: str ):
     return {"hello":name}
 
 @app.get("/callname")
-def write_name(name: str):
+def write_name(name: dict):
     name = data.get("name")
     return {"hello":name}
 
