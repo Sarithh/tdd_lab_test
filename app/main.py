@@ -11,7 +11,7 @@ def read_root():
 def read_name(name: str):
     return {"hello":name}
 
-@app.get("/callname")
+@app.post("/callname")
 def write_name(data: dict):
     name = data.get("name")
     return {"hello":name}
