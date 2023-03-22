@@ -1,23 +1,19 @@
-from fastapi.testclient import TestClient
+from fastapi import Request, FastAPI
+from mangum import Mangum
 
-from app.main import app
+app = FastAPI()
 
-client = TestClient(app)
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
 
+@app.post("/callname")
+async def post_name(data: dict):
+    name = data.get('name')
+    return {"Hello": name}
 
-def test_read_main():
-    response = client.get("/")
-    assert response.status_code == 200
-    assert response.json() == {"Hello": "World"}
-    
-def test_read_call_name():
-    name = "sarith"
-    response = client.get(f"/callname/{name}")
-    assert response.status_code == 200
-    assert response.json() == {"Hello": name}
+@app.get("/callname/{name}")
+def read_name(name: str = None):
+    return {"Hello": name}
 
-def test_post_call_name():
-    name = "sarith"
-    response = client.post("/callname", json={'name': name})
-    assert response.status_code == 200
-    assert response.json() == {"Hello": name}
+handler = Mangum(app)
